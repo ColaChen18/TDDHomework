@@ -22,15 +22,18 @@ namespace HomeWork.Tests
         [Test()]
         public void April_OneDay()
         {
-            var actual = budgetService.Query(new DateTime(2020, 04, 01), new DateTime(2020, 04, 01));
-            Assert.AreEqual(1000, actual);
+            BudgetShouldBe(1000, new DateTime(2020, 04, 01), new DateTime(2020, 04, 01));
+        }
+
+        private void BudgetShouldBe(int expected, DateTime start, DateTime end)
+        {
+            Assert.AreEqual(expected, budgetService.Query(start, end));
         }
 
         [Test()]
         public void April_MultiDay()
         {
-            var actual = budgetService.Query(new DateTime(2020, 04, 01), new DateTime(2020, 04, 05));
-            Assert.AreEqual(5000, actual);
+            BudgetShouldBe(5000,new DateTime(2020,04,01),new DateTime(2020,04,05) );
         }
     }
 

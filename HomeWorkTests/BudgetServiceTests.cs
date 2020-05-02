@@ -83,6 +83,24 @@ namespace HomeWork.Tests
             BudgetShouldBe(3050, new DateTime(2020, 02, 01), new DateTime(2020, 03, 15));
         }
 
+        [Test()]
+        public void Reverse_Date()
+        {
+            _fakeRepo.SetBudgets(new List<Budget>()
+            {
+                new Budget()
+                {
+                    YearMonth = "202002",
+                    Amount    =  2900
+                },  new Budget()
+                {
+                    YearMonth = "202003",
+                    Amount    =  310
+                }
+            });
+            BudgetShouldBe(0, new DateTime(2020, 03, 01), new DateTime(2020, 02, 01));
+        }
+
         private void BudgetShouldBe(int expected, DateTime start, DateTime end)
         {
 

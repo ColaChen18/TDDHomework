@@ -18,6 +18,8 @@ namespace HomeWork
         public decimal Query(DateTime start, DateTime end)
         {
             var budgets = _budgetRepo.GetAll();
+            if (start > end)
+                return 0;
 
             return GetBudget(start, end, budgets);
         }
@@ -30,14 +32,14 @@ namespace HomeWork
                 YearMonth = x.YearMonth,
                 DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year, DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
 
-            }).ToDictionary(x=>x.YearMonth,y=>y.DayAmount);
+            }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
 
 
-            if (end.Month - start.Month >=1)
+            if (end.Month - start.Month >= 1)
             {
 
                 int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * s[start.ToString("yyyyMM")];
-                int endAmount   = (end.Day)                                                       * s[end.ToString("yyyyMM")];
+                int endAmount = (end.Day) * s[end.ToString("yyyyMM")];
 
                 return startAmount + endAmount;
             }

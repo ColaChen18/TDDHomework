@@ -65,6 +65,24 @@ namespace HomeWork.Tests
             BudgetShouldBe(60000, new DateTime(2020, 04, 01), new DateTime(2020, 04, 30));
         }
 
+        [Test()]
+        public void April_MultiMonth()
+        {
+            _fakeRepo.SetBudgets(new List<Budget>()
+            {
+                new Budget()
+                {
+                    YearMonth = "202002",
+                    Amount    =  2900
+                },  new Budget()
+                {
+                    YearMonth = "202003",
+                    Amount    =  310
+                }
+            });
+            BudgetShouldBe(3050, new DateTime(2020, 02, 01), new DateTime(2020, 03, 15));
+        }
+
         private void BudgetShouldBe(int expected, DateTime start, DateTime end)
         {
 

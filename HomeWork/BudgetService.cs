@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace HomeWork
@@ -15,16 +17,55 @@ namespace HomeWork
 
         public decimal Query(DateTime start, DateTime end)
         {
-            
             var budgets = _budgetRepo.GetAll();
 
-            int totoalDay = (end - start).Days+1;
+            return GetBudget(start, end, budgets);
+        }
 
-            var amount = budgets
+        private decimal GetBudget(DateTime start, DateTime end, List<Budget> budgets)
+        {
+
+            var s = budgets.Select(x => new
+            {
+                YearMonth = x.YearMonth,
+                DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year, DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
+
+            }).ToDictionary(x=>x.YearMonth,y=>y.DayAmount);
+
+
+            if (end.Month - start.Month >=1)
+            {
+
+                int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * s[start.ToString("yyyyMM")];
+                int endAmount   = (end.Day)                                                       * s[end.ToString("yyyyMM")];
+
+                return startAmount + endAmount;
+            }
+            else
+            {
+                int totoalDay = (end - start).Days + 1;
+
+                var amount = budgets
                              .Where(x => x.YearMonth == start.ToString("yyyyMM"))
-                             .Sum(a=>a.Amount);
+                             .Sum(a => a.Amount);
 
-            return amount /30* totoalDay;
+                return amount / 30 * totoalDay;
+            }
+
+        }
+
+
+        private Dictionary<string, int> GetDaysDict(DateTime start, DateTime end)
+        {
+            var diffM = end.Month - start.Month;
+            var result = new Dictionary<string, int>();
+            for (int i = 0; i < diffM + 1; i++)
+            {
+                var date = start.AddMonths(i);
+                result.Add(date.ToString("yyyyMM"), DateTime.DaysInMonth(date.Year, date.Month));
+            }
+
+            return result;
         }
     }
 }

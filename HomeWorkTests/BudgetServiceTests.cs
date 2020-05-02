@@ -11,16 +11,30 @@ namespace HomeWork.Tests
     [TestFixture()]
     public class BudgetServiceTests
     {
-        [Test()]
-        public void QueryTest()
+        private BudgetService budgetService;
+
+        [SetUp]
+        public void Setup()
         {
-            var budgetService = new BudgetService(new FakeBudgetService());
+            budgetService = new BudgetService(new FakeBudgetRepo());
+        }
+
+        [Test()]
+        public void April_OneDay()
+        {
             var actual = budgetService.Query(new DateTime(2020, 04, 01), new DateTime(2020, 04, 01));
             Assert.AreEqual(1000, actual);
         }
+
+        [Test()]
+        public void April_MultiDay()
+        {
+            var actual = budgetService.Query(new DateTime(2020, 04, 01), new DateTime(2020, 04, 05));
+            Assert.AreEqual(5000, actual);
+        }
     }
 
-    public class FakeBudgetService : IBudgetRepo
+    public class FakeBudgetRepo : IBudgetRepo
     {
         public List<Budget> GetAll()
         {

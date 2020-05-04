@@ -46,14 +46,16 @@ namespace HomeWork
             var dayAmountDict = _budgetRepo.GetAll().Select(x => new
             {
                 x.YearMonth,
-                DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
-                    DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
+                DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year, DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
             }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
             return dayAmountDict;
         }
 
         private int GetDailyBudget(DateTime start)
         {
+            var days = DateTime.DaysInMonth(start.Year, start.Month);
+            var amount = this._budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == start.ToString("yyyyMM")).Amount;
+            return amount / days;
             return DailyBudgetDict()[start.ToString("yyyyMM")];
         }
     }

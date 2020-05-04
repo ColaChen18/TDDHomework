@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace HomeWork
 {
@@ -22,12 +19,9 @@ namespace HomeWork
 
             if (end.Month - start.Month >= 1)
             {
-                var amountDict = DailyBudgetDict();
                 var dailyBudgetOfStart = GetDailyBudget(start);
-                // var dailyBudgetOfStart = dayAmountDict[start.ToString("yyyyMM")];
                 int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * dailyBudgetOfStart;
                 var dailyBudgetOfEnd = GetDailyBudget(end);
-                // var dailyBudgetOfEnd = amountDict[end.ToString("yyyyMM")];
                 int endAmount = (end.Day) * dailyBudgetOfEnd;
 
                 return startAmount + endAmount;
@@ -42,20 +36,10 @@ namespace HomeWork
             return amount / DateTime.DaysInMonth(start.Year, start.Month) * totalDay;
         }
 
-        private Dictionary<string, int> DailyBudgetDict()
-        {
-            var dayAmountDict = _budgetRepo.GetAll().Select(x => new
-            {
-                x.YearMonth,
-                DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year, DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
-            }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
-            return dayAmountDict;
-        }
-
         private int GetDailyBudget(DateTime date)
         {
             var days = DateTime.DaysInMonth(date.Year, date.Month);
-            var amount = this._budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == date.ToString("yyyyMM")).Amount;
+            var amount = _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == date.ToString("yyyyMM")).Amount;
             return amount / days;
         }
     }

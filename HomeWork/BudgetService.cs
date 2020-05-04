@@ -23,7 +23,7 @@ namespace HomeWork
             if (end.Month - start.Month >= 1)
             {
                 var amountDict = DailyBudgetDict();
-                var dailyBudgetOfStart = GetDailyBudget(start, DailyBudgetDict());
+                var dailyBudgetOfStart = GetDailyBudget(start);
                 // var dailyBudgetOfStart = dayAmountDict[start.ToString("yyyyMM")];
                 int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * dailyBudgetOfStart;
                 var dailyBudgetOfEnd = amountDict[end.ToString("yyyyMM")];
@@ -52,19 +52,9 @@ namespace HomeWork
             return dayAmountDict;
         }
 
-        private int GetDailyBudget(DateTime start, Dictionary<string, int> dictionary)
+        private int GetDailyBudget(DateTime start)
         {
             return DailyBudgetDict()[start.ToString("yyyyMM")];
-        }
-        
-        private double AreaOfCircle(double rad, double pi)
-        {
-          return pi*rad*rad;
-        }
-        
-        public void Test()
-        {
-          var area = AreaOfCircle(10, Math.PI);
         }
     }
 }

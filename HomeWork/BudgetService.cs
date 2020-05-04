@@ -17,11 +17,10 @@ namespace HomeWork
 
         public decimal Query(DateTime start, DateTime end)
         {
-            var budgets = _budgetRepo.GetAll();
             if (start > end)
                 return 0;
 
-            var dayAmountDict = budgets.Select(x => new
+            var dayAmountDict = _budgetRepo.GetAll().Select(x => new
             {
                 x.YearMonth,
                 DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
@@ -39,7 +38,7 @@ namespace HomeWork
 
             int totalDay = (end - start).Days + 1;
 
-            var amount = budgets
+            var amount = _budgetRepo.GetAll()
                 .Where(x => x.YearMonth == start.ToString("yyyyMM"))
                 .Sum(a => a.Amount);
 

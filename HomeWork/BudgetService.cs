@@ -21,10 +21,18 @@ namespace HomeWork
             {
                 var dailyBudgetOfStart = GetDailyBudget(start);
                 int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * dailyBudgetOfStart;
+                int middleAmount = 0;
+                for (int i = 1; i < end.Month - start.Month; i++)
+                {
+                    var currentMonth = start.AddMonths(i);
+                    var dailyBudgetOfMiddle = GetDailyBudget(currentMonth);
+                    middleAmount += DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month)*dailyBudgetOfMiddle;
+                }
+
                 var dailyBudgetOfEnd = GetDailyBudget(end);
                 int endAmount = (end.Day) * dailyBudgetOfEnd;
 
-                return startAmount + endAmount;
+                return startAmount + middleAmount + endAmount;
             }
 
             int totalDay = (end - start).Days + 1;

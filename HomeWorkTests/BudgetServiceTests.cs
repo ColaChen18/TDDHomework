@@ -33,8 +33,8 @@ namespace HomeWorkTests
         [Test]
         public void April_MultiDay()
         {
-            var budget = new Budget {YearMonth = "202004", Amount = 30000};
-            GiveBudgets(budget);
+            GiveBudgets(
+                new Budget {YearMonth = "202004", Amount = 30000});
             BudgetShouldBe(5000, new DateTime(2020, 04, 01), new DateTime(2020, 04, 05));
         }
 
@@ -51,7 +51,8 @@ namespace HomeWorkTests
         [Test]
         public void April_OneDay()
         {
-            GiveBudgets(new Budget {YearMonth = "202004", Amount = 30000});
+            GiveBudgets(
+                new Budget {YearMonth = "202004", Amount = 30000});
             BudgetShouldBe(1000, new DateTime(2020, 04, 01), new DateTime(2020, 04, 01));
         }
 

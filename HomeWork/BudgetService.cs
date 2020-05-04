@@ -28,7 +28,7 @@ namespace HomeWork
         {
             var dayAmountDict = budgets.Select(x => new
             {
-                YearMonth = x.YearMonth,
+                x.YearMonth,
                 DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
                     DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
             }).ToDictionary(x => x.YearMonth, y => y.DayAmount);

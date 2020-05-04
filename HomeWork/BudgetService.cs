@@ -17,11 +17,11 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            if (end.Month - start.Month >= 1)
+            if (end.Month - start.Month >0)
             {
                 var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month);
                 var amountOfStartMonth = GetBudget(start.ToString("yyyyMM")).Amount;
-                var queryDaysInStart = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
+                var queryDaysInStart = GetQueryDaysInStart(start);
                 int startAmount =  queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
                 
                 int middleAmount = 0;
@@ -31,22 +31,40 @@ namespace HomeWork
 
                     var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
                     var amountOfMiddleMonth = GetBudget(middleDate.ToString("yyyyMM")).Amount;
-                    var queryDaysInMiddle = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
+                    var queryDaysInMiddle = QueryDaysInMiddle(middleDate);
                     middleAmount += queryDaysInMiddle * (amountOfMiddleMonth / daysInMiddleMonth);
                 }
 
                 var daysInEndMonth = DateTime.DaysInMonth(end.Year, end.Month);
                 var amountOfEndMonth = GetBudget(end.ToString("yyyyMM")).Amount;
-                var queryDaysInEnd = (end.Day);
+                var queryDaysInEnd = QueryDaysInEnd(end);
                 int endAmount = queryDaysInEnd * (amountOfEndMonth / daysInEndMonth);
 
                 return startAmount + middleAmount + endAmount;
             }
 
-            int totalDay = (end - start).Days + 1;
-            var days3 = DateTime.DaysInMonth(start.Year, start.Month);
-            var amount3 = _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == start.ToString("yyyyMM")).Amount;
-            return amount3 / days3 * totalDay;
+            int queryDays = (end - start).Days + 1;
+            var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
+            var amountOfMonth = GetBudget(start.ToString("yyyyMM")).Amount;
+            return amountOfMonth / daysInMonth * queryDays;
+        }
+
+        private static int QueryDaysInEnd(DateTime end)
+        {
+            var queryDaysInEnd = (end.Day);
+            return queryDaysInEnd;
+        }
+
+        private static int QueryDaysInMiddle(DateTime middleDate)
+        {
+            var queryDaysInMiddle = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
+            return queryDaysInMiddle;
+        }
+
+        private static int GetQueryDaysInStart(DateTime start)
+        {
+            var queryDaysInStart = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
+            return queryDaysInStart;
         }
 
         private Budget GetBudget(string yearMonth)

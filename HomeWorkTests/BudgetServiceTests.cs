@@ -93,6 +93,16 @@ namespace HomeWorkTests
             );
             BudgetShouldBe(10+30+100, new DateTime(2020, 03, 31), new DateTime(2020, 05, 01));
         }
+        
+        [Test]
+        public void March_5_March_10_But_Only_April_with_Budget()
+        {
+            GiveBudgets(
+                new Budget {YearMonth = "202003", Amount = 0},
+                new Budget {YearMonth = "202004", Amount = 30}
+            );
+            BudgetShouldBe(0, new DateTime(2020, 03, 5), new DateTime(2020,3, 10));
+        }
     }
 
 

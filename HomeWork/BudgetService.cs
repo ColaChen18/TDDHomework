@@ -20,7 +20,8 @@ namespace HomeWork
             if (end.Month - start.Month >= 1)
             {
                 var dailyBudgetOfStart = GetDailyBudget(start);
-                int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * dailyBudgetOfStart;
+                var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
+                int startAmount = daysInStartMonth * dailyBudgetOfStart;
                 
                 int middleAmount = 0;
                 for (int i = 1; i < end.Month - start.Month; i++)

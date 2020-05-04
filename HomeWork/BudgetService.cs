@@ -20,15 +20,15 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            var dayAmountDict = _budgetRepo.GetAll().Select(x => new
-            {
-                x.YearMonth,
-                DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
-                    DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
-            }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
-
             if (end.Month - start.Month >= 1)
             {
+                var dayAmountDict = _budgetRepo.GetAll().Select(x => new
+                {
+                    x.YearMonth,
+                    DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
+                        DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
+                }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
+
                 var startBudget = dayAmountDict[start.ToString("yyyyMM")];
                 int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * startBudget;
                 int endAmount = (end.Day) * dayAmountDict[end.ToString("yyyyMM")];

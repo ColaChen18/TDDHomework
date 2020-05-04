@@ -51,19 +51,5 @@ namespace HomeWork
 
             return amount / DateTime.DaysInMonth(start.Year, start.Month) * totalDay;
         }
-
-
-        private Dictionary<string, int> GetDaysDict(DateTime start, DateTime end)
-        {
-            var diffM = end.Month - start.Month;
-            var result = new Dictionary<string, int>();
-            for (int i = 0; i < diffM + 1; i++)
-            {
-                var date = start.AddMonths(i);
-                result.Add(date.ToString("yyyyMM"), DateTime.DaysInMonth(date.Year, date.Month));
-            }
-
-            return result;
-        }
     }
 }

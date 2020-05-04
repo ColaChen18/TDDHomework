@@ -54,7 +54,8 @@ namespace HomeWork
 
         private Budget GetBudget(string yearMonth)
         {
-            return _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == yearMonth);
+            var budgetRepo = _budgetRepo;
+            return budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == yearMonth);
         }
     }
 }

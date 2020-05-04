@@ -19,26 +19,26 @@ namespace HomeWork
 
             if (end.Month - start.Month >= 1)
             {
-                var days = DateTime.DaysInMonth(start.Year, start.Month);
-                var amount = GetBudget(start.ToString("yyyyMM")).Amount;
-                var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
-                int startAmount = daysInStartMonth * (amount / days);
+                var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month);
+                var amountOfStartMonth = GetBudget(start.ToString("yyyyMM")).Amount;
+                var queryDaysInStart = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
+                int startAmount =  queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
                 
                 int middleAmount = 0;
                 for (int i = 1; i < end.Month - start.Month; i++)
                 {
                     var middleDate = start.AddMonths(i);
 
-                    var days1 = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
-                    var amount1 = GetBudget(middleDate.ToString("yyyyMM")).Amount;
                     var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
-                    middleAmount += daysInMiddleMonth * (amount1 / days1);
+                    var amountOfMiddleMonth = GetBudget(middleDate.ToString("yyyyMM")).Amount;
+                    var queryDaysInMiddle = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
+                    middleAmount += queryDaysInMiddle * (amountOfMiddleMonth / daysInMiddleMonth);
                 }
 
-                var days2 = DateTime.DaysInMonth(end.Year, end.Month);
-                var amount2 = GetBudget(end.ToString("yyyyMM")).Amount;
-                var daysInEndMonth = (end.Day);
-                int endAmount = daysInEndMonth * (amount2 / days2);
+                var daysInEndMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                var amountOfEndMonth = GetBudget(end.ToString("yyyyMM")).Amount;
+                var queryDaysInEnd = (end.Day);
+                int endAmount = queryDaysInEnd * (amountOfEndMonth / daysInEndMonth);
 
                 return startAmount + middleAmount + endAmount;
             }

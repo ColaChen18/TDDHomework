@@ -28,12 +28,7 @@ namespace HomeWork
             }
 
             int totalDay = (end - start).Days + 1;
-
-            var amount = _budgetRepo.GetAll()
-                .Where(x => x.YearMonth == start.ToString("yyyyMM"))
-                .Sum(a => a.Amount);
-
-            return amount / DateTime.DaysInMonth(start.Year, start.Month) * totalDay;
+            return GetDailyBudget(start) * totalDay;
         }
 
         private int GetDailyBudget(DateTime date)

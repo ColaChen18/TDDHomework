@@ -83,6 +83,17 @@ namespace HomeWorkTests
             );
             BudgetShouldBe(11, new DateTime(2020, 03, 31), new DateTime(2020, 04, 01));
         }
+
+        [Test]
+        public void March_31_May_1()
+        {
+            GiveBudgets(
+                new Budget {YearMonth = "202003", Amount = 310},
+                new Budget {YearMonth = "202004", Amount = 30},
+                new Budget {YearMonth = "202005", Amount = 3100}
+            );
+            BudgetShouldBe(10+30+100, new DateTime(2020, 03, 31), new DateTime(2020, 05, 01));
+        }
     }
 
 

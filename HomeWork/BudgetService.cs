@@ -29,11 +29,13 @@ namespace HomeWork
                     var middleDate = start.AddMonths(i);
                     
                     var dailyBudgetOfMiddle = GetDailyBudget(middleDate);
-                    middleAmount += DateTime.DaysInMonth(middleDate.Year, middleDate.Month) * dailyBudgetOfMiddle;
+                    var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
+                    middleAmount += daysInMiddleMonth * dailyBudgetOfMiddle;
                 }
 
                 var dailyBudgetOfEnd = GetDailyBudget(end);
-                int endAmount = (end.Day) * dailyBudgetOfEnd;
+                var daysInEndMonth = (end.Day);
+                int endAmount = daysInEndMonth * dailyBudgetOfEnd;
 
                 return startAmount + middleAmount + endAmount;
             }

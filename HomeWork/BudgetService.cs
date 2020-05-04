@@ -21,11 +21,6 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            return GetBudget(start, end, budgets);
-        }
-
-        private decimal GetBudget(DateTime start, DateTime end, List<Budget> budgets)
-        {
             var dayAmountDict = budgets.Select(x => new
             {
                 x.YearMonth,
@@ -33,11 +28,10 @@ namespace HomeWork
                     DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
             }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
 
-
             if (end.Month - start.Month >= 1)
             {
-                int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) *
-                                  dayAmountDict[start.ToString("yyyyMM")];
+                var startBudget = dayAmountDict[start.ToString("yyyyMM")];
+                int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * startBudget;
                 int endAmount = (end.Day) * dayAmountDict[end.ToString("yyyyMM")];
 
                 return startAmount + endAmount;

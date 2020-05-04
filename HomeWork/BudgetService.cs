@@ -5,7 +5,7 @@ namespace HomeWork
 {
     public class BudgetService
     {
-        private IBudgetRepo _budgetRepo;
+        private readonly IBudgetRepo _budgetRepo;
 
         public BudgetService(IBudgetRepo budgetRepo)
         {

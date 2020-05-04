@@ -73,7 +73,18 @@ namespace HomeWorkTests
             );
             BudgetShouldBe(0, new DateTime(2020, 03, 01), new DateTime(2020, 02, 01));
         }
+        
+        [Test]
+        public void March_31_April_1()
+        {
+            GiveBudgets(
+                new Budget {YearMonth = "202003", Amount = 310},
+                new Budget {YearMonth = "202004", Amount = 30}
+            );
+            BudgetShouldBe(11, new DateTime(2020, 03, 31), new DateTime(2020, 04, 01));
+        }
     }
+
 
     public class FakeBudgetRepo : IBudgetRepo
     {

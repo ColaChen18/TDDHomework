@@ -26,7 +26,8 @@ namespace HomeWork
                 var dailyBudgetOfStart = GetDailyBudget(start);
                 // var dailyBudgetOfStart = dayAmountDict[start.ToString("yyyyMM")];
                 int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * dailyBudgetOfStart;
-                var dailyBudgetOfEnd = amountDict[end.ToString("yyyyMM")];
+                var dailyBudgetOfEnd = GetDailyBudget(end);
+                // var dailyBudgetOfEnd = amountDict[end.ToString("yyyyMM")];
                 int endAmount = (end.Day) * dailyBudgetOfEnd;
 
                 return startAmount + endAmount;
@@ -51,12 +52,11 @@ namespace HomeWork
             return dayAmountDict;
         }
 
-        private int GetDailyBudget(DateTime start)
+        private int GetDailyBudget(DateTime date)
         {
-            var days = DateTime.DaysInMonth(start.Year, start.Month);
-            var amount = this._budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == start.ToString("yyyyMM")).Amount;
+            var days = DateTime.DaysInMonth(date.Year, date.Month);
+            var amount = this._budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == date.ToString("yyyyMM")).Amount;
             return amount / days;
-            return DailyBudgetDict()[start.ToString("yyyyMM")];
         }
     }
 }

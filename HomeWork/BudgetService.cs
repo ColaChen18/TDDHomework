@@ -19,7 +19,9 @@ namespace HomeWork
 
             if (end.Month - start.Month >= 1)
             {
-                var dailyBudgetOfStart = GetDailyBudget(start);
+                var days = DateTime.DaysInMonth(start.Year, start.Month);
+                var amount = GetBudget(start).Amount;
+                var dailyBudgetOfStart = amount / days;
                 var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
                 int startAmount = daysInStartMonth * dailyBudgetOfStart;
                 
@@ -27,13 +29,19 @@ namespace HomeWork
                 for (int i = 1; i < end.Month - start.Month; i++)
                 {
                     var middleDate = start.AddMonths(i);
-                    
-                    var dailyBudgetOfMiddle = GetDailyBudget(middleDate);
+
+                    var days1 = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
+                    var amount1 = GetBudget(middleDate).Amount;
+                    // var amount1 = _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == middleDate.ToString("yyyyMM")).Amount;
+                    var dailyBudgetOfMiddle = amount1 / days1;
                     var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
                     middleAmount += daysInMiddleMonth * dailyBudgetOfMiddle;
                 }
 
-                var dailyBudgetOfEnd = GetDailyBudget(end);
+                var days2 = DateTime.DaysInMonth(end.Year, end.Month);
+                var amount2 = GetBudget(end).Amount;
+                // var amount2 = _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == end.ToString("yyyyMM")).Amount;
+                var dailyBudgetOfEnd = amount2 / days2;
                 var daysInEndMonth = (end.Day);
                 int endAmount = daysInEndMonth * dailyBudgetOfEnd;
 
@@ -41,14 +49,14 @@ namespace HomeWork
             }
 
             int totalDay = (end - start).Days + 1;
-            return GetDailyBudget(start) * totalDay;
+            var days3 = DateTime.DaysInMonth(start.Year, start.Month);
+            var amount3 = _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == start.ToString("yyyyMM")).Amount;
+            return amount3 / days3 * totalDay;
         }
 
-        private int GetDailyBudget(DateTime date)
+        private Budget GetBudget(DateTime start)
         {
-            var days = DateTime.DaysInMonth(date.Year, date.Month);
-            var amount = _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == date.ToString("yyyyMM")).Amount;
-            return amount / days;
+            return _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == start.ToString("yyyyMM"));
         }
     }
 }

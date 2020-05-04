@@ -43,10 +43,10 @@ namespace HomeWork
                 return startAmount + middleAmount + endAmount;
             }
 
-            int queryDays = (end - start).Days + 1;
             var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
             var amountOfMonth = GetBudget(start.ToString("yyyyMM")).Amount;
-            return amountOfMonth / daysInMonth * queryDays;
+            int queryDays = (end - start).Days + 1;
+            return queryDays * (amountOfMonth / daysInMonth) ;
         }
 
         private static int QueryDaysInEnd(DateTime end)

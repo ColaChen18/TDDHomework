@@ -29,7 +29,6 @@ namespace HomeWorkTests
             Assert.AreEqual(expected, _budgetService.Query(start, end));
         }
 
-
         [Test]
         public void April_MultiDay()
         {

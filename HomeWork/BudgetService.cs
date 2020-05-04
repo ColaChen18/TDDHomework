@@ -22,16 +22,12 @@ namespace HomeWork
 
             if (end.Month - start.Month >= 1)
             {
-                var dayAmountDict = _budgetRepo.GetAll().Select(x => new
-                {
-                    x.YearMonth,
-                    DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
-                        DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
-                }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
-
-                var startBudget = dayAmountDict[start.ToString("yyyyMM")];
-                int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * startBudget;
-                int endAmount = (end.Day) * dayAmountDict[end.ToString("yyyyMM")];
+                var amountDict = DailyBudgetDict();
+                var dailyBudgetOfStart = GetDailyBudget(start, DailyBudgetDict());
+                // var dailyBudgetOfStart = dayAmountDict[start.ToString("yyyyMM")];
+                int startAmount = (DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1) * dailyBudgetOfStart;
+                var dailyBudgetOfEnd = amountDict[end.ToString("yyyyMM")];
+                int endAmount = (end.Day) * dailyBudgetOfEnd;
 
                 return startAmount + endAmount;
             }
@@ -43,6 +39,32 @@ namespace HomeWork
                 .Sum(a => a.Amount);
 
             return amount / DateTime.DaysInMonth(start.Year, start.Month) * totalDay;
+        }
+
+        private Dictionary<string, int> DailyBudgetDict()
+        {
+            var dayAmountDict = _budgetRepo.GetAll().Select(x => new
+            {
+                x.YearMonth,
+                DayAmount = x.Amount / DateTime.DaysInMonth(DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Year,
+                    DateTime.ParseExact(x.YearMonth, "yyyyMM", null).Month)
+            }).ToDictionary(x => x.YearMonth, y => y.DayAmount);
+            return dayAmountDict;
+        }
+
+        private int GetDailyBudget(DateTime start, Dictionary<string, int> dictionary)
+        {
+            return DailyBudgetDict()[start.ToString("yyyyMM")];
+        }
+        
+        private double AreaOfCircle(double rad, double pi)
+        {
+          return pi*rad*rad;
+        }
+        
+        public void Test()
+        {
+          var area = AreaOfCircle(10, Math.PI);
         }
     }
 }

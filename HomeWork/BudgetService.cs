@@ -20,7 +20,7 @@ namespace HomeWork
             if (end.Month - start.Month >= 1)
             {
                 var days = DateTime.DaysInMonth(start.Year, start.Month);
-                var amount = GetBudget(start, start.ToString("yyyyMM")).Amount;
+                var amount = GetBudget(start.ToString("yyyyMM")).Amount;
                 var dailyBudgetOfStart = amount / days;
                 var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
                 int startAmount = daysInStartMonth * dailyBudgetOfStart;
@@ -31,14 +31,14 @@ namespace HomeWork
                     var middleDate = start.AddMonths(i);
 
                     var days1 = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
-                    var amount1 = GetBudget(middleDate, middleDate.ToString("yyyyMM")).Amount;
+                    var amount1 = GetBudget(middleDate.ToString("yyyyMM")).Amount;
                     var dailyBudgetOfMiddle = amount1 / days1;
                     var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
                     middleAmount += daysInMiddleMonth * dailyBudgetOfMiddle;
                 }
 
                 var days2 = DateTime.DaysInMonth(end.Year, end.Month);
-                var amount2 = GetBudget(end, end.ToString("yyyyMM")).Amount;
+                var amount2 = GetBudget(end.ToString("yyyyMM")).Amount;
                 var dailyBudgetOfEnd = amount2 / days2;
                 var daysInEndMonth = (end.Day);
                 int endAmount = daysInEndMonth * dailyBudgetOfEnd;
@@ -52,7 +52,7 @@ namespace HomeWork
             return amount3 / days3 * totalDay;
         }
 
-        private Budget GetBudget(DateTime date, string yearMonth)
+        private Budget GetBudget(string yearMonth)
         {
             return _budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == yearMonth);
         }

@@ -45,13 +45,13 @@ namespace HomeWork
 
             var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
             var amountOfMonth = GetBudget(start.ToString("yyyyMM")).Amount;
-            var queryDays = QueryDays(start, end);
+            var queryDays = QueryDays(new Period(start, end));
             return queryDays * (amountOfMonth / daysInMonth) ;
         }
 
-        private static int QueryDays(DateTime start, DateTime end)
+        private static int QueryDays(Period period)
         {
-            int queryDays = (end - start).Days + 1;
+            int queryDays = (period.End - period.Start).Days + 1;
             return queryDays;
         }
 

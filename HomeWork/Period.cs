@@ -17,8 +17,8 @@ namespace HomeWork
         {
             var budgetFirstDay = budget.BudgetFirstDay();
             var budgetLastDay = budget.BudgetLastDay();
-            var periodEnd = End <= budgetLastDay ? End : period.End;
-            var periodStart = budgetFirstDay <= Start ? Start : period.Start;
+            var periodEnd = End <= period.End ? End : period.End;
+            var periodStart = period.Start <= Start ? Start : period.Start;
             var queryDaysInPeriod = (periodEnd - periodStart).Days + 1;
             return queryDaysInPeriod;
         }

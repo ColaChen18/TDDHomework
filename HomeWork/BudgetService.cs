@@ -54,10 +54,11 @@ namespace HomeWork
         {
             var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
             var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-            if (budgetFirstDay <= period.Start && period.End <= budgetLastDay)
+            if (period.End <= budgetLastDay)
             {
                 var periodEnd = period.End;
-                var periodStart = period.Start;
+                var periodStart = budgetFirstDay <= period.Start ? period.Start : budgetFirstDay;
+
                 return (periodEnd - periodStart).Days + 1;
             }
 

@@ -17,9 +17,9 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            var period = new Period(start, end);
-
-            return _budgetRepo.GetAll().Sum(budget => budget.GetPeriodAmount(period));
+            return _budgetRepo
+                .GetAll()
+                .Sum(budget => budget.GetPeriodAmount(new Period(start, end)));
         }
 
         private Budget GetBudget(DateTime queryDate)

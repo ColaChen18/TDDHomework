@@ -13,11 +13,10 @@ namespace HomeWork
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
 
-        public int OverlapDays(Budget budget)
+        public int OverlapDays(Budget budget, Period period)
         {
             var budgetFirstDay = budget.BudgetFirstDay();
             var budgetLastDay = budget.BudgetLastDay();
-            var period = new Period(budget.BudgetFirstDay(), budget.BudgetLastDay());
             var periodEnd = End <= budgetLastDay ? End : period.End;
             var periodStart = budgetFirstDay <= Start ? Start : period.Start;
             var queryDaysInPeriod = (periodEnd - periodStart).Days + 1;

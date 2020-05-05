@@ -37,5 +37,10 @@ namespace HomeWork
                     DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month));
             return budgetLastDay;
         }
+
+        public decimal GetPeriodAmount(Period period)
+        {
+            return period.OverlapDays(new Period(BudgetFirstDay(), BudgetLastDay())) * GetDailyAmount();
+        }
     }
 }

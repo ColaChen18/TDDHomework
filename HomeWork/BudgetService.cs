@@ -18,13 +18,8 @@ namespace HomeWork
                 return 0;
 
             var period = new Period(start, end);
-            var result = 0m;
-            foreach (var budget in _budgetRepo.GetAll())
-            {
-                result += budget.GetPeriodAmount(period);
-            }
 
-            return result;
+            return _budgetRepo.GetAll().Sum(budget => budget.GetPeriodAmount(period));
         }
 
         private Budget GetBudget(DateTime queryDate)

@@ -25,7 +25,7 @@ namespace HomeWork
                 // int startAmount = queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
 
                 int middleAmount = 0;
-                for (int i =0; i < end.Month - start.Month; i++)
+                for (int i =0; i < end.Month - start.Month+1; i++)
                 {
                     var middleDate = start.AddMonths(i);
 
@@ -40,7 +40,8 @@ namespace HomeWork
                 var queryDaysInEnd = QueryDaysInPeriod(new Period(start, end), end);
                 int endAmount = queryDaysInEnd * (amountOfEndMonth / daysInEndMonth);
 
-                return  middleAmount + endAmount;
+                return  middleAmount ;
+                // return  middleAmount + endAmount;
                 // return startAmount + middleAmount + endAmount;
             }
 

@@ -20,18 +20,18 @@ namespace HomeWork
             var result = 0m;
             for (var i = 0; i < end.Month - start.Month + 1; i++)
             {
-                var budget = GetBudget(start.AddMonths(i).ToString("yyyyMM"));
-                var dailyAmount = budget.Amount / budget.GetDaysInMonth();
-                result +=  budget.QueryDaysInPeriod(new Period(start, end)) * dailyAmount;
+                var month = start.AddMonths(i);
+                var budget = GetBudget(month);
+                result +=  budget.QueryDaysInPeriod(new Period(start, end)) * budget.GetDailyAmount();
             }
 
             return result;
         }
 
-        private Budget GetBudget(string yearMonth)
+        private Budget GetBudget(DateTime queryDate)
         {
             var budgetRepo = _budgetRepo;
-            return budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == yearMonth);
+            return budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == queryDate.ToString("yyyyMM"));
         }
     }
 }

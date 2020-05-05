@@ -25,5 +25,11 @@ namespace HomeWork
                 DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month);
             return daysInMonth;
         }
+
+        public decimal GetDailyAmount()
+        {
+            var dailyAmount = Amount / GetDaysInMonth();
+            return dailyAmount;
+        }
     }
 }

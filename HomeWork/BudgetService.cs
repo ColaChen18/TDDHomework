@@ -17,7 +17,7 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            if (end.Month - start.Month > 0)
+            // if (end.Month - start.Month > 0)
             {
                 int middleAmount = 0;
                 for (int i =0; i < end.Month - start.Month+1; i++)

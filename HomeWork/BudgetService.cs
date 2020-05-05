@@ -17,13 +17,14 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
+            var period = new Period(start, end);
             var result = 0m;
             for (var i = 0; i < end.Month - start.Month + 1; i++)
             {
                 var month = start.AddMonths(i);
                 var budget = GetBudget(month);
-                var queryDaysInPeriod = new Period(start, end).QueryDaysInPeriod(budget);
-                result +=  queryDaysInPeriod * budget.GetDailyAmount();
+                var queryDaysInPeriod = period.QueryDaysInPeriod(budget);
+                result += queryDaysInPeriod * budget.GetDailyAmount();
             }
 
             return result;

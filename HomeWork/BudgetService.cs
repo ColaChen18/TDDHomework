@@ -31,8 +31,7 @@ namespace HomeWork
 
                     var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
                     var amountOfMiddleMonth = GetBudget(middleDate.ToString("yyyyMM")).Amount;
-                    // var queryDaysInMiddle = QueryDaysInPeriod(new Period(start,end),middleDate);
-                    var queryDaysInMiddle = QueryDaysInMiddle(middleDate);
+                    var queryDaysInMiddle = QueryDaysInPeriod(new Period(start,end),middleDate);
                     middleAmount += queryDaysInMiddle * (amountOfMiddleMonth / daysInMiddleMonth);
                 }
 

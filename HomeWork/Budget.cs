@@ -17,5 +17,13 @@ namespace HomeWork
             var periodStart = budgetFirstDay <= period.Start ? period.Start : budgetFirstDay;
             return (periodEnd - periodStart).Days + 1;
         }
+
+        public decimal GetDaysInMonth()
+        {
+            decimal daysInMonth = DateTime.DaysInMonth(
+                DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
+                DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month);
+            return daysInMonth;
+        }
     }
 }

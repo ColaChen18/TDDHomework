@@ -22,22 +22,11 @@ namespace HomeWork
             {
                 var month = start.AddMonths(i);
                 var budget = GetBudget(month);
-                var queryDaysInPeriod = QueryDaysInPeriod(budget, new Period(start, end));
+                var queryDaysInPeriod = new Period(start, end).QueryDaysInPeriod(budget);
                 result +=  queryDaysInPeriod * budget.GetDailyAmount();
             }
 
             return result;
-        }
-
-        private static int QueryDaysInPeriod(Budget budget, Period period)
-        {
-            var date = DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null);
-            var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
-            var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-            var periodEnd = period.End <= budgetLastDay ? period.End : budgetLastDay;
-            var periodStart = budgetFirstDay <= period.Start ? period.Start : budgetFirstDay;
-            var queryDaysInPeriod = (periodEnd - periodStart).Days + 1;
-            return queryDaysInPeriod;
         }
 
         private Budget GetBudget(DateTime queryDate)

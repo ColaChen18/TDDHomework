@@ -28,5 +28,14 @@ namespace HomeWork
                 DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month, 1);
             return budgetFirstDay;
         }
+
+        public DateTime BudgetLastDay()
+        {
+            var budgetLastDay = new DateTime(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
+                DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month,
+                DateTime.DaysInMonth(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
+                    DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month));
+            return budgetLastDay;
+        }
     }
 }

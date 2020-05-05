@@ -18,8 +18,9 @@ namespace HomeWork
             var date = DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null);
             var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
             var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-            var periodEnd = End <= budgetLastDay ? End : budgetLastDay;
-            var periodStart = budgetFirstDay <= Start ? Start : budgetFirstDay;
+            var budgetPeriod = new Period(budgetFirstDay,budgetLastDay);
+            var periodEnd = End <= budgetLastDay ? End : budgetPeriod.End;
+            var periodStart = budgetFirstDay <= Start ? Start : budgetPeriod.Start;
             var queryDaysInPeriod = (periodEnd - periodStart).Days + 1;
             return queryDaysInPeriod;
         }

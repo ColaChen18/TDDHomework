@@ -22,7 +22,8 @@ namespace HomeWork
             {
                 var month = start.AddMonths(i);
                 var budget = GetBudget(month);
-                result +=  budget.QueryDaysInPeriod(new Period(start, end)) * budget.GetDailyAmount();
+                var queryDaysInPeriod = budget.QueryDaysInPeriod(new Period(start, end));
+                result +=  queryDaysInPeriod * budget.GetDailyAmount();
             }
 
             return result;

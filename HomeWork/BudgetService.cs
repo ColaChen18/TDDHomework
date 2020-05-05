@@ -25,14 +25,6 @@ namespace HomeWork
             }
 
             return result;
-            for (var i = 0; i < end.Month - start.Month + 1; i++)
-            {
-                var month = start.AddMonths(i);
-                var budget = GetBudget(month);
-                result += budget.GetPeriodAmount(period);
-            }
-
-            return result;
         }
 
         private Budget GetBudget(DateTime queryDate)

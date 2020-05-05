@@ -21,8 +21,9 @@ namespace HomeWork
             for (var i = 0; i < end.Month - start.Month + 1; i++)
             {
                 var currentMonth = start.AddMonths(i);
+                var budget = GetBudget(currentMonth.ToString("yyyyMM"));
                 var daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
-                var amount = GetBudget(currentMonth.ToString("yyyyMM")).Amount;
+                var amount = budget.Amount;
                 var daysInPeriod = QueryDaysInPeriod(new Period(start, end), currentMonth);
                 result += daysInPeriod * (amount / daysInMonth);
             }

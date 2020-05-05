@@ -29,12 +29,6 @@ namespace HomeWork
                     var queryDaysInMiddle = QueryDaysInPeriod(new Period(start, end), middleDate);
                     middleAmount += queryDaysInMiddle * (amountOfMiddleMonth / daysInMiddleMonth);
                 }
-
-                var daysInEndMonth = DateTime.DaysInMonth(end.Year, end.Month);
-                var amountOfEndMonth = GetBudget(end.ToString("yyyyMM")).Amount;
-                var queryDaysInEnd = QueryDaysInPeriod(new Period(start, end), end);
-                int endAmount = queryDaysInEnd * (amountOfEndMonth / daysInEndMonth);
-
                 return  middleAmount ;
             }
 

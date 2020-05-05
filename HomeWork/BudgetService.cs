@@ -19,11 +19,6 @@ namespace HomeWork
 
             if (end.Month - start.Month > 0)
             {
-                // var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month);
-                // var amountOfStartMonth = GetBudget(start.ToString("yyyyMM")).Amount;
-                // var queryDaysInStart = QueryDaysInPeriod(new Period(start,end), start);
-                // int startAmount = queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
-
                 int middleAmount = 0;
                 for (int i =0; i < end.Month - start.Month+1; i++)
                 {
@@ -41,8 +36,6 @@ namespace HomeWork
                 int endAmount = queryDaysInEnd * (amountOfEndMonth / daysInEndMonth);
 
                 return  middleAmount ;
-                // return  middleAmount + endAmount;
-                // return startAmount + middleAmount + endAmount;
             }
 
             var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);

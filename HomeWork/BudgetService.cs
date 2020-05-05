@@ -32,7 +32,7 @@ namespace HomeWork
 
         private static int GetQueryDaysInPeriod(Period period, Budget budget)
         {
-            var queryDaysInPeriod = period.OverlapDays(budget, new Period(budget.BudgetFirstDay(), budget.BudgetLastDay()));
+            var queryDaysInPeriod = period.OverlapDays(new Period(budget.BudgetFirstDay(), budget.BudgetLastDay()));
             return queryDaysInPeriod;
         }
 

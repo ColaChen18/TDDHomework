@@ -17,15 +17,18 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            int result = 0;
+            var result = 0m;
             for (var i = 0; i < end.Month - start.Month + 1; i++)
             {
-                var currentMonth = start.AddMonths(i);
-                var budget = GetBudget(currentMonth.ToString("yyyyMM"));
-                var daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
+                var budget = GetBudget(start.AddMonths(i).ToString("yyyyMM"));
+                decimal daysInMonth = DateTime.DaysInMonth(
+                    DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null).Year,
+                    DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null).Month);
+               // decimal daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
                 var amount = budget.Amount;
                 var daysInPeriod = budget.QueryDaysInPeriod(new Period(start, end));
-                result += daysInPeriod * (amount / daysInMonth);
+                var dailyAmount = amount / daysInMonth;
+                result +=  daysInPeriod * dailyAmount;
             }
 
             return result;

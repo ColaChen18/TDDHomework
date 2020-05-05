@@ -19,6 +19,12 @@ namespace HomeWork
 
             var period = new Period(start, end);
             var result = 0m;
+            foreach (var budget in _budgetRepo.GetAll())
+            {
+                result += budget.GetPeriodAmount(period);
+            }
+
+            return result;
             for (var i = 0; i < end.Month - start.Month + 1; i++)
             {
                 var month = start.AddMonths(i);

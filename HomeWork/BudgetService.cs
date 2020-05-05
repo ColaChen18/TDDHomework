@@ -38,7 +38,7 @@ namespace HomeWork
 
                 var daysInEndMonth = DateTime.DaysInMonth(end.Year, end.Month);
                 var amountOfEndMonth = GetBudget(end.ToString("yyyyMM")).Amount;
-                var queryDaysInEnd = QueryDaysInEnd(end);
+                var queryDaysInEnd = QueryDaysInPeriod(new Period(start,end), end);
                 int endAmount = queryDaysInEnd * (amountOfEndMonth / daysInEndMonth);
 
                 return startAmount + middleAmount + endAmount;

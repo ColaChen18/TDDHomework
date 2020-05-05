@@ -21,11 +21,5 @@ namespace HomeWork
                 .GetAll()
                 .Sum(budget => budget.GetPeriodAmount(new Period(start, end)));
         }
-
-        private Budget GetBudget(DateTime queryDate)
-        {
-            var budgetRepo = _budgetRepo;
-            return budgetRepo.GetAll().FirstOrDefault(x => x.YearMonth == queryDate.ToString("yyyyMM"));
-        }
     }
 }

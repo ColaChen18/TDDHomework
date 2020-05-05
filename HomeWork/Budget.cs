@@ -8,7 +8,7 @@ namespace HomeWork
 
         public int Amount { get; set; }
 
-        public decimal GetDaysInMonth()
+        private decimal GetDaysInMonth()
         {
             decimal daysInMonth = DateTime.DaysInMonth(
                 DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
@@ -16,31 +16,31 @@ namespace HomeWork
             return daysInMonth;
         }
 
-        public decimal GetDailyAmount()
+        private decimal GetDailyAmount()
         {
             var dailyAmount = Amount / GetDaysInMonth();
             return dailyAmount;
         }
 
-        public DateTime BudgetFirstDay()
+        private DateTime FirstDay()
         {
-            var budgetFirstDay = new DateTime(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
+            var firstDay = new DateTime(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
                 DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month, 1);
-            return budgetFirstDay;
+            return firstDay;
         }
 
-        public DateTime BudgetLastDay()
+        private DateTime LastDay()
         {
-            var budgetLastDay = new DateTime(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
+            var lastDay = new DateTime(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
                 DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month,
                 DateTime.DaysInMonth(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
                     DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month));
-            return budgetLastDay;
+            return lastDay;
         }
 
         public decimal GetPeriodAmount(Period period)
         {
-            return period.OverlapDays(new Period(BudgetFirstDay(), BudgetLastDay())) * GetDailyAmount();
+            return period.OverlapDays(new Period(FirstDay(), LastDay())) * GetDailyAmount();
         }
     }
 }

@@ -10,20 +10,15 @@ namespace HomeWork
             End = end;
         }
 
-        public DateTime Start { get; private set; }
-        public DateTime End { get; private set; }
+        private DateTime Start { get; }
+        private DateTime End { get; }
 
         public int OverlapDays(Period period)
         {
             var periodEnd = End <= period.End ? End : period.End;
             var periodStart = period.Start <= Start ? Start : period.Start;
 
-            if (periodEnd >= periodStart)
-            {
-                return (periodEnd - periodStart).Days + 1;
-            }
-
-            return 0;
+            return periodEnd >= periodStart ? (periodEnd - periodStart).Days + 1 : 0;
         }
     }
 }

@@ -17,13 +17,13 @@ namespace HomeWork
             if (start > end)
                 return 0;
 
-            if (end.Month - start.Month >0)
+            if (end.Month - start.Month > 0)
             {
                 var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month);
                 var amountOfStartMonth = GetBudget(start.ToString("yyyyMM")).Amount;
                 var queryDaysInStart = GetQueryDaysInStart(start);
-                int startAmount =  queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
-                
+                int startAmount = queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
+
                 int middleAmount = 0;
                 for (int i = 1; i < end.Month - start.Month; i++)
                 {
@@ -31,6 +31,7 @@ namespace HomeWork
 
                     var daysInMiddleMonth = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
                     var amountOfMiddleMonth = GetBudget(middleDate.ToString("yyyyMM")).Amount;
+                    // var queryDaysInMiddle = QueryDaysInPeriod(new Period(start,end),middleDate);
                     var queryDaysInMiddle = QueryDaysInMiddle(middleDate);
                     middleAmount += queryDaysInMiddle * (amountOfMiddleMonth / daysInMiddleMonth);
                 }
@@ -45,8 +46,23 @@ namespace HomeWork
 
             var daysInMonth = DateTime.DaysInMonth(start.Year, start.Month);
             var amountOfMonth = GetBudget(start.ToString("yyyyMM")).Amount;
-            var queryDays = QueryDays(new Period(start, end));
-            return queryDays * (amountOfMonth / daysInMonth) ;
+            var queryDays = QueryDaysInPeriod(new Period(start, end), start);
+            // var queryDays = QueryDays(new Period(start, end));
+            return queryDays * (amountOfMonth / daysInMonth);
+        }
+
+        private int QueryDaysInPeriod(Period period, DateTime date)
+        {
+            var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
+            var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+            if (budgetFirstDay <= period.Start && period.End <= budgetLastDay)
+            {
+                var periodEnd = period.End;
+                var periodStart = period.Start;
+                return (periodEnd - periodStart).Days + 1;
+            }
+
+            return 0;
         }
 
         private static int QueryDays(Period period)

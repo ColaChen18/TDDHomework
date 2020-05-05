@@ -17,8 +17,7 @@ namespace HomeWork
         {
             var periodEnd = End <= period.End ? End : period.End;
             var periodStart = period.Start <= Start ? Start : period.Start;
-            var queryDaysInPeriod = (periodEnd - periodStart).Days + 1;
-            return queryDaysInPeriod;
+            return (periodEnd - periodStart).Days + 1;
         }
     }
 }

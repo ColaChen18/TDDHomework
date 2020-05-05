@@ -13,7 +13,7 @@ namespace HomeWork
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
 
-        public int QueryDaysInPeriod(Budget budget)
+        public int OverlapDays(Budget budget)
         {
             var date = DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null);
             var budgetFirstDay = new DateTime(date.Year, date.Month, 1);

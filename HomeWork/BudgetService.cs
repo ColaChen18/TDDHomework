@@ -23,7 +23,7 @@ namespace HomeWork
             {
                 var month = start.AddMonths(i);
                 var budget = GetBudget(month);
-                var queryDaysInPeriod = period.QueryDaysInPeriod(budget);
+                var queryDaysInPeriod = period.OverlapDays(budget);
                 result += queryDaysInPeriod * budget.GetDailyAmount();
             }
 

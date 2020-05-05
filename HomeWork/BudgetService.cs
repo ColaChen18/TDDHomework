@@ -22,7 +22,6 @@ namespace HomeWork
                 var daysInStartMonth = DateTime.DaysInMonth(start.Year, start.Month);
                 var amountOfStartMonth = GetBudget(start.ToString("yyyyMM")).Amount;
                 var queryDaysInStart = QueryDaysInPeriod(new Period(start,end), start);
-                // var queryDaysInStart = GetQueryDaysInStart(start);
                 int startAmount = queryDaysInStart * (amountOfStartMonth / daysInStartMonth);
 
                 int middleAmount = 0;

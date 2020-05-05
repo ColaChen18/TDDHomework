@@ -41,15 +41,6 @@ namespace HomeWork
             return (periodEnd - periodStart).Days + 1;
         }
 
-        private int QueryDaysInPeriod(Period period, DateTime date)
-        {
-            var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
-            var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-            var periodEnd = period.End <= budgetLastDay ? period.End : budgetLastDay;
-            var periodStart = budgetFirstDay <= period.Start ? period.Start : budgetFirstDay;
-            return (periodEnd - periodStart).Days + 1;
-        }
-
         private Budget GetBudget(string yearMonth)
         {
             var budgetRepo = _budgetRepo;

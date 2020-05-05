@@ -24,21 +24,11 @@ namespace HomeWork
                 var budget = GetBudget(currentMonth.ToString("yyyyMM"));
                 var daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
                 var amount = budget.Amount;
-                var daysInPeriod = QueryDaysInPeriod(new Period(start, end), budget);
+                var daysInPeriod = budget.QueryDaysInPeriod(new Period(start, end));
                 result += daysInPeriod * (amount / daysInMonth);
             }
 
             return result;
-        }
-
-        private int QueryDaysInPeriod(Period period, Budget budget)
-        {
-            var date = DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null);
-            var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
-            var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-            var periodEnd = period.End <= budgetLastDay ? period.End : budgetLastDay;
-            var periodStart = budgetFirstDay <= period.Start ? period.Start : budgetFirstDay;
-            return (periodEnd - periodStart).Days + 1;
         }
 
         private Budget GetBudget(string yearMonth)

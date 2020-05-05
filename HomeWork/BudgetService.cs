@@ -58,24 +58,6 @@ namespace HomeWork
             return (periodEnd - periodStart).Days + 1;
         }
 
-        private static int QueryDaysInEnd(DateTime end)
-        {
-            var queryDaysInEnd = (end.Day);
-            return queryDaysInEnd;
-        }
-
-        private static int QueryDaysInMiddle(DateTime middleDate)
-        {
-            var queryDaysInMiddle = DateTime.DaysInMonth(middleDate.Year, middleDate.Month);
-            return queryDaysInMiddle;
-        }
-
-        private static int GetQueryDaysInStart(DateTime start)
-        {
-            var queryDaysInStart = DateTime.DaysInMonth(start.Year, start.Month) - start.Day + 1;
-            return queryDaysInStart;
-        }
-
         private Budget GetBudget(string yearMonth)
         {
             var budgetRepo = _budgetRepo;

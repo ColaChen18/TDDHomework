@@ -15,12 +15,10 @@ namespace HomeWork
 
         public int OverlapDays(Budget budget)
         {
-            var date = DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null);
-            var budgetFirstDay = new DateTime(date.Year, date.Month, 1);
-            var budgetLastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-            var budgetPeriod = new Period(budgetFirstDay,budgetLastDay);
-            var periodEnd = End <= budgetLastDay ? End : budgetPeriod.End;
-            var periodStart = budgetFirstDay <= Start ? Start : budgetPeriod.Start;
+            var budgetFirstDay = budget.BudgetFirstDay();
+            var budgetLastDay = new DateTime(DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null).Year, DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null).Month, DateTime.DaysInMonth(DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null).Year, DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null).Month));
+            var periodEnd = End <= budgetLastDay ? End : budgetLastDay;
+            var periodStart = budgetFirstDay <= Start ? Start : budgetFirstDay;
             var queryDaysInPeriod = (periodEnd - periodStart).Days + 1;
             return queryDaysInPeriod;
         }

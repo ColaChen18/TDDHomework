@@ -21,5 +21,12 @@ namespace HomeWork
             var dailyAmount = Amount / GetDaysInMonth();
             return dailyAmount;
         }
+
+        public DateTime BudgetFirstDay()
+        {
+            var budgetFirstDay = new DateTime(DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Year,
+                DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null).Month, 1);
+            return budgetFirstDay;
+        }
     }
 }

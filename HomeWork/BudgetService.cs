@@ -14,9 +14,6 @@ namespace HomeWork
 
         public decimal Query(DateTime start, DateTime end)
         {
-            if (start > end)
-                return 0;
-
             return _budgetRepo
                 .GetAll()
                 .Sum(budget => budget.GetPeriodAmount(new Period(start, end)));
